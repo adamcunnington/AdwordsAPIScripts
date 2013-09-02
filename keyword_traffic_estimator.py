@@ -1,4 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
+"""Provide a simple method to get traffic estimations for a large amount of 
+keywords where the Web-Based Google Keyword Planner tool would be impractical.
+
+"""
 
 from __future__ import division
 import csv
@@ -20,6 +25,25 @@ def _chunks(iterator, chunk_size):
         
 def get_traffic_estimates(client, input_filepath, output_filepath=None, 
                           location_ID=2826, language_ID=1000):
+    """Reads keyword data from a CSV file, queries Google API's 
+    TrafficEstimatorService for each keyword and then outputs traffic and cost 
+    data to a CSV file.
+    
+    Arguments:
+    input_filepath - The full absolute filepath of the CSV input file.
+    output_filepath (Keyword Default: None) - The full absolute filepath for 
+    for the generated CSV output file. If no value is passed, a timestamped 
+    file name will be used as default.
+    location_ID (Keyword Default: 2826) - The Location ID to be used for the 
+    traffic estimations as seen on 
+    https://developers.google.com/adwords/api/docs/appendix/geotargeting. If 
+    no value is passed, United Kingdom will be used as default.
+    language_ID (Keyword Default: 1000) - The Language ID to be used for the 
+    traffic estimations as seen on 
+    https://developers.google.com/adwords/api/docs/appendix/languagecodes. If 
+    no value is passed, English will be used as default.
+    
+    """
     dir_path = os.path.dirname(input_filepath)
     keyword_estimate_requests = []
     with open(input_filepath, "rb") as input_file:
@@ -97,3 +121,14 @@ if __name__ == "__main__":
         sys.exit("Keyword Traffic Estimator: Syntax - <csv_input_filepath> "
                  "[csv_output_filepath] [location ID] [language ID]")
     get_traffic_estimations(_CLIENT, *sys.argv)
+    
+'''Example Usage:
+
+keyword_traffic_estimator.py C:/Users/Anon/Keywords.csv
+'''
+
+''' TO DO:
+- Implement OAuth2.0 Client Authorisation.
+- Allow Negatives to be passed to refine traffic estimations.
+- Provide more user-friendly error handling.
+'''
