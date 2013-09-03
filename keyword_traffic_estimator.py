@@ -19,9 +19,9 @@ __all__ = (
 _CLIENT = None # To Do
 _MAX_KEYWORD_REQUESTS = 500
 
-def _chunks(iterator, chunk_size):
-    for index in xrange(0, len(iterator), chunk_size):
-        yield iterator[index:index + chunk_size]
+def _chunks(iterable, chunk_size):
+    for index in xrange(0, len(iterable), chunk_size):
+        yield iterable[index: index + chunk_size]
         
 def get_traffic_estimates(client, input_filepath, output_filepath=None, 
                           location_ID=2826, language_ID=1000):
@@ -122,13 +122,15 @@ if __name__ == "__main__":
                  "[csv_output_filepath] [location ID] [language ID]")
     get_traffic_estimations(_CLIENT, *sys.argv)
     
-'''Example Usage:
+'''Example Usages:
 
-keyword_traffic_estimator.py C:/Users/Anon/Keywords.csv
+keyword_traffic_estimator.py C:/Users/Anon/KW.csv
+keyword_traffic_estimator.py C:/Users/Anon/KW.csv C:/Users/Anon/Output.csv
+keyword_traffic_estimator.py C:/Users/Anon/KW.csv C:/Users/Anon/KW2.csv 20342
 '''
 
 ''' TO DO:
 - Implement OAuth2.0 Client Authorisation.
-- Allow Negatives to be passed to refine traffic estimations.
+- Allow Negatives to be passed to refine traffic estimations?
 - Provide more user-friendly error handling.
 '''
