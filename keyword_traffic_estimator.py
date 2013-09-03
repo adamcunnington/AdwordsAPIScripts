@@ -75,7 +75,7 @@ def get_traffic_estimates(client, input_filepath, output_filepath=None,
                 }, 
                 {
                     "xsi_type": "Language", 
-                    "id": location_ID
+                    "id": language_ID
                 }]
             }]})[0]
         keyword_estimates = estimates["campaignEstimates"][0][
